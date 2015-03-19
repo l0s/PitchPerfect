@@ -7,19 +7,28 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var stopButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func record(sender: AnyObject, forEvent event: UIEvent) {
+        statusLabel.hidden = false
+        stopButton.enabled = true
+    }
 
+    @IBAction func stop(sender: AnyObject, forEvent event: UIEvent) {
+        stopButton.enabled = false
+        statusLabel.hidden = true
+    }
 }
-
