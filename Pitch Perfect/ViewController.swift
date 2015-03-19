@@ -11,11 +11,16 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var stopButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        stopButton.hidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,11 +29,19 @@ class ViewController: UIViewController {
 
     @IBAction func record(sender: AnyObject, forEvent event: UIEvent) {
         statusLabel.hidden = false
+
+        recordButton.enabled = false
+
+        stopButton.hidden = false
         stopButton.enabled = true
     }
 
     @IBAction func stop(sender: AnyObject, forEvent event: UIEvent) {
         stopButton.enabled = false
+
         statusLabel.hidden = true
+
+        recordButton.enabled = true
     }
+
 }
