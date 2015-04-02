@@ -11,15 +11,15 @@ import AVFoundation
 
 class PlaySoundsViewController: UIViewController {
 
+    var audio:RecordedAudio!
     var playbackError:NSError?
     lazy var mainBundle:NSBundle = {
         return NSBundle.mainBundle()
     }()
     lazy var player:AVAudioPlayer = {
-        let path:String! = self.mainBundle.pathForResource( "movie_quote", ofType: "mp3" )
-        let url = NSURL( fileURLWithPath: path )
         var error:NSError?
-        let player = AVAudioPlayer( contentsOfURL: url, error: &self.playbackError )
+        let player =
+            AVAudioPlayer( contentsOfURL: self.audio.path, error: &self.playbackError )
         player.enableRate = true
         return player
     }()

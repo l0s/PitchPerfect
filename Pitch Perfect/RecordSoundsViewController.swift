@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class RecordSoundsViewController: UIViewController {
+class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
@@ -28,10 +28,13 @@ class RecordSoundsViewController: UIViewController {
         println( "-- saving to: \( self.fileName )" )
         let retval =
             AVAudioRecorder( URL:NSURL( fileURLWithPath:self.fileName ), settings:nil, error:&error )
+        retval.delegate = self
         retval.meteringEnabled = true
         assert( error == nil, "Error creating audio recorder: \( error!.localizedDescription )" )
         return retval
     }()
+
+    var audio:RecordedAudio?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +66,24 @@ class RecordSoundsViewController: UIViewController {
 
         recorder.prepareToRecord()
         recorder.record()
+    }
+
+    func audioRecorderDidFinishRecording( recorder: AVAudioRecorder!, successfully flag: Bool ) {
+        assert( flag, "recording failed" )
+
+        audio = RecordedAudio()
+        audio!.title = recorder.url.lastPathComponent
+        audio!.path = recorder.url
+
+        performSegueWithIdentifier( "stopRecording", sender: recorder )
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if( segue.identifier == "stopRecording" )
+        {
+            let target = segue.destinationViewController as PlaySoundsViewController
+            target.audio = audio
+        }
     }
 
     @IBAction func stop(sender: AnyObject, forEvent event: UIEvent) {
