@@ -19,13 +19,35 @@ class PlaySoundsViewController: UIViewController {
         let path:String! = self.mainBundle.pathForResource( "movie_quote", ofType: "mp3" )
         let url = NSURL( fileURLWithPath: path )
         var error:NSError?
-        let player = AVAudioPlayer( contentsOfURL: url, error: &self.playbackError );
-        player.volume = 1.0
+        let player = AVAudioPlayer( contentsOfURL: url, error: &self.playbackError )
+        player.enableRate = true
         return player
     }()
 
-    @IBAction func playbackSlowly( sender: UIButton, forEvent event: UIEvent ) {
-        player.prepareToPlay()
+    override func viewWillDisappear( animated: Bool ) {
+        player.stop()
+    }
+
+    @IBAction func playbackSlowly( sender: UIButton, forEvent event: UIEvent )
+    {
+        playback( 0.5 )
+    }
+
+    @IBAction func playbackQuickly( sender: UIButton, forEvent event: UIEvent )
+    {
+        playback( 2.0 )
+    }
+
+    @IBAction func stop( sender: UIButton, forEvent event: UIEvent )
+    {
+        player.stop()
+        player.currentTime = 0
+    }
+
+    func playback( rate:Float )
+    {
+        player.stop()
+        player.rate = rate
         let initiated = player.play()
         assert( initiated, "playback not initiated" )
         if let error = playbackError
