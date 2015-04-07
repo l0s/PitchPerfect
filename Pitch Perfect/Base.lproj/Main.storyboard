@@ -3,7 +3,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Record-->
@@ -92,93 +91,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QHQ-ZI-8oM">
-                                <rect key="frame" x="16" y="64" width="568" height="371"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HIF-vE-Nbe">
-                                        <rect key="frame" x="0.0" y="0.0" width="284" height="185.5"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8I-6o-3MI">
-                                                <rect key="frame" x="92" y="43" width="100" height="100"/>
-                                                <accessibility key="accessibilityConfiguration" label="playback slow"/>
-                                                <state key="normal" image="slow">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="playbackSlowly:forEvent:" destination="LMG-h0-04I" eventType="touchUpInside" id="m57-qT-RyD"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <accessibility key="accessibilityConfiguration" label="top-left-pane"/>
-                                        <constraints>
-                                            <constraint firstAttribute="centerY" secondItem="z8I-6o-3MI" secondAttribute="centerY" id="Gxm-ob-dyX"/>
-                                            <constraint firstAttribute="centerX" secondItem="z8I-6o-3MI" secondAttribute="centerX" id="U2N-Xy-F6I"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Q8-eN-G0s">
-                                        <rect key="frame" x="284" y="0.0" width="284" height="185.5"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L0-9a-Imy">
-                                                <rect key="frame" x="92" y="43" width="100" height="100"/>
-                                                <state key="normal" image="fast">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="playbackQuickly:forEvent:" destination="LMG-h0-04I" eventType="touchUpInside" id="5kA-uC-bv2"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <accessibility key="accessibilityConfiguration" label="top-right-pane"/>
-                                        <constraints>
-                                            <constraint firstAttribute="centerY" secondItem="4L0-9a-Imy" secondAttribute="centerY" constant="-0.25" id="4is-WD-nkE"/>
-                                            <constraint firstAttribute="centerX" secondItem="4L0-9a-Imy" secondAttribute="centerX" id="Cz2-hq-oWO"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="HIF-vE-Nbe" firstAttribute="top" secondItem="QHQ-ZI-8oM" secondAttribute="top" id="3DC-fi-IUy"/>
-                                    <constraint firstItem="9Q8-eN-G0s" firstAttribute="height" secondItem="QHQ-ZI-8oM" secondAttribute="height" multiplier="0.5" id="8Hz-eZ-O7d"/>
-                                    <constraint firstAttribute="trailing" secondItem="9Q8-eN-G0s" secondAttribute="trailing" id="B2a-Fn-Dhf"/>
-                                    <constraint firstItem="HIF-vE-Nbe" firstAttribute="height" secondItem="QHQ-ZI-8oM" secondAttribute="height" multiplier="0.5" id="Bl8-9e-cmt"/>
-                                    <constraint firstItem="9Q8-eN-G0s" firstAttribute="top" secondItem="QHQ-ZI-8oM" secondAttribute="top" id="Trh-hd-Xwf"/>
-                                    <constraint firstItem="HIF-vE-Nbe" firstAttribute="leading" secondItem="QHQ-ZI-8oM" secondAttribute="leading" id="VUz-Kh-ofW"/>
-                                    <constraint firstItem="9Q8-eN-G0s" firstAttribute="width" secondItem="QHQ-ZI-8oM" secondAttribute="width" multiplier="0.5" id="kW5-eQ-6p5"/>
-                                    <constraint firstItem="HIF-vE-Nbe" firstAttribute="width" secondItem="QHQ-ZI-8oM" secondAttribute="width" multiplier="0.5" id="vN5-U4-Of0"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FsG-tL-ZdF">
-                                <rect key="frame" x="16" y="371" width="568" height="229"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GL3-A4-Kay">
-                                        <rect key="frame" x="228.5" y="65" width="100" height="100"/>
-                                        <state key="normal" image="stop">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="stop:forEvent:" destination="LMG-h0-04I" eventType="touchUpInside" id="UCp-eR-7kU"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="GL3-A4-Kay" secondAttribute="centerX" constant="5" id="N95-IE-ULD"/>
-                                    <constraint firstAttribute="centerY" secondItem="GL3-A4-Kay" secondAttribute="centerY" constant="-0.5" id="YQX-wA-iLc"/>
-                                </constraints>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L0-9a-Imy" userLabel="Fast">
+                                <rect key="frame" x="340" y="180" width="100" height="100"/>
+                                <state key="normal" image="fast">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playbackQuickly:forEvent:" destination="LMG-h0-04I" eventType="touchUpInside" id="5kA-uC-bv2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qw4-Zd-c58" userLabel="Slow">
+                                <rect key="frame" x="160" y="180" width="100" height="100"/>
+                                <accessibility key="accessibilityConfiguration" label="playback slow"/>
+                                <state key="normal" image="slow">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playbackSlowly:forEvent:" destination="LMG-h0-04I" eventType="touchUpInside" id="JMn-G8-zZX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GL3-A4-Kay" userLabel="Stop">
+                                <rect key="frame" x="250" y="430" width="100" height="100"/>
+                                <state key="normal" image="stop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="stop:forEvent:" destination="LMG-h0-04I" eventType="touchUpInside" id="UCp-eR-7kU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Qq-KV-Z1Y">
+                                <rect key="frame" x="160" y="320" width="100" height="100"/>
+                                <state key="normal" image="chipmunk">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playbackLikeChipmunk:forEvent:" destination="LMG-h0-04I" eventType="touchUpInside" id="td1-RT-zM0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QHQ-ZI-8oM" firstAttribute="leading" secondItem="6At-jm-HHv" secondAttribute="leadingMargin" id="45b-iY-805"/>
-                            <constraint firstItem="LSc-eI-HxS" firstAttribute="top" secondItem="FsG-tL-ZdF" secondAttribute="bottom" id="6b2-GB-h2Z"/>
-                            <constraint firstItem="QHQ-ZI-8oM" firstAttribute="top" secondItem="igP-wb-X8I" secondAttribute="bottom" id="9Yw-5W-gbb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="QHQ-ZI-8oM" secondAttribute="trailing" id="akU-g9-70J"/>
-                            <constraint firstItem="FsG-tL-ZdF" firstAttribute="height" secondItem="6At-jm-HHv" secondAttribute="height" multiplier="0.381966" id="cVx-rE-s8E"/>
-                            <constraint firstItem="QHQ-ZI-8oM" firstAttribute="height" secondItem="6At-jm-HHv" secondAttribute="height" multiplier="0.618034" id="fPz-Wq-TOK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="FsG-tL-ZdF" secondAttribute="trailing" id="vJH-be-qEF"/>
-                            <constraint firstItem="FsG-tL-ZdF" firstAttribute="leading" secondItem="6At-jm-HHv" secondAttribute="leadingMargin" id="wCC-C3-FWW"/>
+                            <constraint firstAttribute="centerX" secondItem="5Qq-KV-Z1Y" secondAttribute="centerX" constant="90" id="3J4-lg-Tko"/>
+                            <constraint firstAttribute="centerY" secondItem="GL3-A4-Kay" secondAttribute="centerY" constant="-180" id="3ly-9O-5iN"/>
+                            <constraint firstAttribute="centerY" secondItem="Qw4-Zd-c58" secondAttribute="centerY" constant="70" id="BOW-sE-U2Y"/>
+                            <constraint firstAttribute="centerY" secondItem="5Qq-KV-Z1Y" secondAttribute="centerY" constant="-70" id="G0M-4h-sAc"/>
+                            <constraint firstAttribute="centerX" secondItem="GL3-A4-Kay" secondAttribute="centerX" id="S8p-T5-rqy"/>
+                            <constraint firstAttribute="centerY" secondItem="4L0-9a-Imy" secondAttribute="centerY" constant="70" id="UEb-l5-25N"/>
+                            <constraint firstAttribute="centerX" secondItem="Qw4-Zd-c58" secondAttribute="centerX" constant="90" id="WWE-Cz-dd0"/>
+                            <constraint firstAttribute="centerX" secondItem="4L0-9a-Imy" secondAttribute="centerX" constant="-90" id="Wsv-CC-eLR"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -206,6 +166,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chipmunk" width="100" height="100"/>
         <image name="fast" width="100" height="100"/>
         <image name="microphone" width="100" height="100"/>
         <image name="slow" width="100" height="100"/>

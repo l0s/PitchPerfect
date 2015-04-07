@@ -38,6 +38,9 @@ class PlaySoundsViewController: UIViewController {
         playback( 2.0 )
     }
 
+    @IBAction func playbackLikeChipmunk(sender: UIButton, forEvent event: UIEvent) {
+    }
+
     @IBAction func stop( sender: UIButton, forEvent event: UIEvent )
     {
         player.stop()
