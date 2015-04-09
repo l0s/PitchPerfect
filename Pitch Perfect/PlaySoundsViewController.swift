@@ -15,26 +15,15 @@ class PlaySoundsViewController: UIViewController {
     lazy var mainBundle:NSBundle! = {
         return NSBundle.mainBundle()
     }()
-    lazy var player:AVAudioPlayer! = {
-        var error:NSError?
-        let player =
-            AVAudioPlayer( contentsOfURL: self.audio.path, error: &error )
-        player.enableRate = true
-        assert( error == nil )
-        return player
-    }()
     lazy var engine:AVAudioEngine! = {
         return AVAudioEngine()
     }()
-    var file:AVAudioFile!
-
-    override func viewDidLoad() {
-        file = AVAudioFile( forReading: audio.path, error: nil )
-        println( "-- will play: \(file)" )
-    }
+    lazy var file:AVAudioFile! = {
+        return AVAudioFile( forReading: self.audio.path, error: nil )
+    }()
 
     override func viewWillDisappear( animated: Bool ) {
-        player.stop()
+        engine.stop()
     }
 
     @IBAction func playbackSlowly( sender: UIButton, forEvent event: UIEvent )
@@ -48,24 +37,30 @@ class PlaySoundsViewController: UIViewController {
     }
 
     @IBAction func playbackLikeChipmunk( sender: UIButton, forEvent event: UIEvent ) {
-        player.stop()
+        playback( 1.0, pitch: 1000 )
+    }
+
+    @IBAction func stop( sender: UIButton, forEvent event: UIEvent )
+    {
+        engine.stop()
+    }
+
+    func playback( rate:Float, pitch:Float )
+    {
         engine.stop()
         engine.reset()
 
-        println( "-- playing like a chipmunk" )
         let node = AVAudioPlayerNode()
-
         let effect = AVAudioUnitTimePitch()
-        effect.pitch = 1000
+        effect.rate = rate
+        effect.pitch = pitch
 
         engine.attachNode( node )
         engine.attachNode( effect )
 
-        println( "-- connecting pipes" )
         engine.connect( node, to: effect, format: nil )
         engine.connect( effect, to: engine.outputNode, format: nil )
 
-        println( "-- preparation" )
         node.scheduleFile( file, atTime: nil, completionHandler: nil )
 
         engine.prepare()
@@ -74,23 +69,7 @@ class PlaySoundsViewController: UIViewController {
         assert( engineError == nil )
         assert( engineStarted )
 
-        println( "-- playback" )
         node.play()
-    }
-
-    @IBAction func stop( sender: UIButton, forEvent event: UIEvent )
-    {
-        player.stop()
-        player.currentTime = 0
-    }
-
-    func playback( rate:Float, pitch:Float )
-    {
-        player.stop()
-        player.rate = rate
-        
-        let initiated = player.play()
-        assert( initiated, "playback not initiated" )
     }
 
 }
