@@ -9,15 +9,12 @@
 import UIKit
 import AVFoundation
 
-class PlaySoundsViewController: UIViewController {
+public class PlaySoundsViewController: UIViewController {
 
     var audio:RecordedAudio!
 
     lazy var mainBundle:NSBundle! = {
         return NSBundle.mainBundle()
-    }()
-    lazy var engine:AVAudioEngine! = {
-        return AVAudioEngine()
     }()
     lazy var file:AVAudioFile! = {
         var error:NSError?
@@ -31,8 +28,16 @@ class PlaySoundsViewController: UIViewController {
     lazy var effect:AVAudioUnitTimePitch = {
         return AVAudioUnitTimePitch()
     }()
+    lazy var engine:AVAudioEngine! = {
+        let retval = AVAudioEngine()
+        retval.attachNode( self.node )
+        retval.attachNode( self.effect )
+        retval.connect( self.node, to: self.effect, format: nil )
+        retval.connect( self.effect, to: retval.outputNode, format: nil )
+        return retval
+    }()
 
-    override func viewWillDisappear( animated: Bool ) {
+    override public func viewWillDisappear( animated: Bool ) {
         engine.stop()
     }
 
@@ -67,12 +72,6 @@ class PlaySoundsViewController: UIViewController {
 
         effect.rate = rate
         effect.pitch = pitch
-
-        engine.attachNode( node )
-        engine.attachNode( effect )
-
-        engine.connect( node, to: effect, format: nil )
-        engine.connect( effect, to: engine.outputNode, format: nil )
 
         node.scheduleFile( file, atTime: nil, completionHandler: nil )
 

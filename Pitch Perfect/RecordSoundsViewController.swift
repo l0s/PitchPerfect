@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
+public class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
@@ -36,20 +36,12 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     var audio:RecordedAudio?
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override public func viewWillAppear(animated: Bool) {
         stopButton.hidden = true
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    override func viewWillDisappear(animated: Bool) {
-//        NSFileManager.defaultManager().removeItemAtPath(fileName, error:nil )
     }
 
     @IBAction func record(sender: AnyObject, forEvent event: UIEvent) {
@@ -68,7 +60,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         recorder.record()
     }
 
-    func audioRecorderDidFinishRecording( recorder: AVAudioRecorder!, successfully flag: Bool ) {
+    public func audioRecorderDidFinishRecording( recorder: AVAudioRecorder!, successfully flag: Bool ) {
         assert( flag, "recording failed" )
 
         audio = RecordedAudio()
@@ -78,7 +70,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         performSegueWithIdentifier( "stopRecording", sender: recorder )
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if( segue.identifier == "stopRecording" )
         {
             let target = segue.destinationViewController as PlaySoundsViewController
