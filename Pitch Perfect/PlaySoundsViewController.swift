@@ -22,8 +22,14 @@ class PlaySoundsViewController: UIViewController {
     lazy var file:AVAudioFile! = {
         var error:NSError?
         let retval = AVAudioFile( forReading: self.audio.path, error: &error )
-        assert( error == nil )
+        assert( error == nil, "Error referencing recorded file: \(error?.localizedDescription)" )
         return retval
+    }()
+    lazy var node:AVAudioPlayerNode = {
+        return AVAudioPlayerNode()
+    }()
+    lazy var effect:AVAudioUnitTimePitch = {
+        return AVAudioUnitTimePitch()
     }()
 
     override func viewWillDisappear( animated: Bool ) {
@@ -44,18 +50,17 @@ class PlaySoundsViewController: UIViewController {
         playback( pitch: 1000 )
     }
 
-    @IBAction func stop( sender: UIButton, forEvent event: UIEvent )
+    @IBAction func stop()
     {
         engine.stop()
+        node.stop()
     }
 
     func playback( rate:Float = 1.0, pitch:Float = 1.0 )
     {
-        engine.stop()
-        engine.reset()
+        stop()
+        reset()
 
-        let node = AVAudioPlayerNode()
-        let effect = AVAudioUnitTimePitch()
         effect.rate = rate
         effect.pitch = pitch
 
@@ -74,6 +79,13 @@ class PlaySoundsViewController: UIViewController {
         assert( engineStarted, "Unable to start audio engine." )
 
         node.play()
+    }
+
+    func reset()
+    {
+        engine.reset()
+        node.reset()
+        effect.reset()
     }
 
 }

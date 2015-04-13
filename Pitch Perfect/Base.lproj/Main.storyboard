@@ -116,7 +116,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="stop:forEvent:" destination="LMG-h0-04I" eventType="touchUpInside" id="UCp-eR-7kU"/>
+                                    <action selector="stop" destination="LMG-h0-04I" eventType="touchUpInside" id="sLF-ch-fOx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Qq-KV-Z1Y" userLabel="Squirrel">
