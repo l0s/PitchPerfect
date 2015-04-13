@@ -37,6 +37,16 @@ public class PlaySoundsViewController: UIViewController {
         return retval
     }()
 
+    override public func viewWillAppear(animated: Bool) {
+        let session = AVAudioSession.sharedInstance()
+        var error:NSError?
+        let category:String! = AVAudioSessionCategoryPlayAndRecord
+        let options:AVAudioSessionCategoryOptions = .DefaultToSpeaker
+        let categorySet = session.setCategory(category, withOptions: options, error: &error)
+        assert( error == nil, "Error setting audio session category: \(error?.localizedDescription)" )
+        assert( categorySet, "Unable to set audio session category." )
+    }
+
     override public func viewWillDisappear( animated: Bool ) {
         engine.stop()
     }
