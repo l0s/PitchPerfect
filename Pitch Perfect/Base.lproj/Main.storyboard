@@ -92,7 +92,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L0-9a-Imy" userLabel="Fast">
-                                <rect key="frame" x="340" y="180" width="100" height="100"/>
+                                <rect key="frame" x="325" y="104" width="100" height="100"/>
                                 <state key="normal" image="fast">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -101,7 +101,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qw4-Zd-c58" userLabel="Slow">
-                                <rect key="frame" x="160" y="180" width="100" height="100"/>
+                                <rect key="frame" x="175" y="104" width="100" height="100"/>
                                 <accessibility key="accessibilityConfiguration" label="playback slow"/>
                                 <state key="normal" image="slow">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -111,7 +111,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GL3-A4-Kay" userLabel="Stop">
-                                <rect key="frame" x="250" y="430" width="100" height="100"/>
+                                <rect key="frame" x="250" y="465" width="100" height="100"/>
                                 <state key="normal" image="stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -119,8 +119,8 @@
                                     <action selector="stop:forEvent:" destination="LMG-h0-04I" eventType="touchUpInside" id="UCp-eR-7kU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Qq-KV-Z1Y">
-                                <rect key="frame" x="160" y="320" width="100" height="100"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Qq-KV-Z1Y" userLabel="Squirrel">
+                                <rect key="frame" x="175" y="254" width="100" height="100"/>
                                 <state key="normal" image="chipmunk">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -131,20 +131,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="5Qq-KV-Z1Y" secondAttribute="centerX" constant="90" id="3J4-lg-Tko"/>
-                            <constraint firstAttribute="centerY" secondItem="GL3-A4-Kay" secondAttribute="centerY" constant="-180" id="3ly-9O-5iN"/>
-                            <constraint firstAttribute="centerY" secondItem="Qw4-Zd-c58" secondAttribute="centerY" constant="70" id="BOW-sE-U2Y"/>
-                            <constraint firstAttribute="centerY" secondItem="5Qq-KV-Z1Y" secondAttribute="centerY" constant="-70" id="G0M-4h-sAc"/>
-                            <constraint firstAttribute="centerX" secondItem="GL3-A4-Kay" secondAttribute="centerX" id="S8p-T5-rqy"/>
-                            <constraint firstAttribute="centerY" secondItem="4L0-9a-Imy" secondAttribute="centerY" constant="70" id="UEb-l5-25N"/>
-                            <constraint firstAttribute="centerX" secondItem="Qw4-Zd-c58" secondAttribute="centerX" constant="90" id="WWE-Cz-dd0"/>
-                            <constraint firstAttribute="centerX" secondItem="4L0-9a-Imy" secondAttribute="centerX" constant="-90" id="Wsv-CC-eLR"/>
+                            <constraint firstItem="Qw4-Zd-c58" firstAttribute="centerY" secondItem="4L0-9a-Imy" secondAttribute="centerY" id="16B-PA-KFL"/>
+                            <constraint firstItem="5Qq-KV-Z1Y" firstAttribute="top" secondItem="Qw4-Zd-c58" secondAttribute="bottom" constant="50" id="MHY-6M-OBK"/>
+                            <constraint firstAttribute="centerX" secondItem="Qw4-Zd-c58" secondAttribute="centerX" constant="75" id="SFk-HK-Bgl"/>
+                            <constraint firstAttribute="centerX" secondItem="GL3-A4-Kay" secondAttribute="centerX" id="eeQ-ai-EP4"/>
+                            <constraint firstItem="Qw4-Zd-c58" firstAttribute="centerX" secondItem="5Qq-KV-Z1Y" secondAttribute="centerX" id="hP1-HI-GCb"/>
+                            <constraint firstItem="Qw4-Zd-c58" firstAttribute="top" secondItem="igP-wb-X8I" secondAttribute="bottom" constant="40" id="lUt-kK-g3a"/>
+                            <constraint firstItem="LSc-eI-HxS" firstAttribute="top" secondItem="GL3-A4-Kay" secondAttribute="bottom" constant="35" id="qW2-gO-PzM"/>
+                            <constraint firstAttribute="centerX" secondItem="4L0-9a-Imy" secondAttribute="centerX" constant="-75" id="sK0-qo-OiV"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JqY-ow-FBi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1885" y="280"/>
+            <point key="canvasLocation" x="1889" y="280"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="a1q-Ii-JgW">
