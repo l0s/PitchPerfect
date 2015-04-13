@@ -12,6 +12,7 @@ import AVFoundation
 class PlaySoundsViewController: UIViewController {
 
     var audio:RecordedAudio!
+
     lazy var mainBundle:NSBundle! = {
         return NSBundle.mainBundle()
     }()
@@ -19,7 +20,10 @@ class PlaySoundsViewController: UIViewController {
         return AVAudioEngine()
     }()
     lazy var file:AVAudioFile! = {
-        return AVAudioFile( forReading: self.audio.path, error: nil )
+        var error:NSError?
+        let retval = AVAudioFile( forReading: self.audio.path, error: &error )
+        assert( error == nil )
+        return retval
     }()
 
     override func viewWillDisappear( animated: Bool ) {
@@ -28,16 +32,16 @@ class PlaySoundsViewController: UIViewController {
 
     @IBAction func playbackSlowly( sender: UIButton, forEvent event: UIEvent )
     {
-        playback( 0.5, pitch:1.0 )
+        playback( rate:0.5 )
     }
 
     @IBAction func playbackQuickly( sender: UIButton, forEvent event: UIEvent )
     {
-        playback( 2.0, pitch:1.0 )
+        playback( rate:2.0 )
     }
 
     @IBAction func playbackLikeChipmunk( sender: UIButton, forEvent event: UIEvent ) {
-        playback( 1.0, pitch: 1000 )
+        playback( pitch: 1000 )
     }
 
     @IBAction func stop( sender: UIButton, forEvent event: UIEvent )
@@ -45,7 +49,7 @@ class PlaySoundsViewController: UIViewController {
         engine.stop()
     }
 
-    func playback( rate:Float, pitch:Float )
+    func playback( rate:Float = 1.0, pitch:Float = 1.0 )
     {
         engine.stop()
         engine.reset()
@@ -66,8 +70,8 @@ class PlaySoundsViewController: UIViewController {
         engine.prepare()
         var engineError:NSError?
         let engineStarted = engine.startAndReturnError( &engineError )
-        assert( engineError == nil )
-        assert( engineStarted )
+        assert( engineError == nil, "Error starting audio engine: \(engineError?.localizedDescription)." )
+        assert( engineStarted, "Unable to start audio engine." )
 
         node.play()
     }
