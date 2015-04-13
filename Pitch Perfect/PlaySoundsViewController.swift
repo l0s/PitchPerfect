@@ -50,6 +50,10 @@ class PlaySoundsViewController: UIViewController {
         playback( pitch: 1000 )
     }
 
+    @IBAction func playbackLikeDarthVader( sender: UIButton, forEvent event: UIEvent ) {
+        playback( pitch: -1000 )
+    }
+
     @IBAction func stop()
     {
         engine.stop()
