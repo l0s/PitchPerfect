@@ -38,6 +38,7 @@ public class PlaySoundsViewController: UIViewController {
     }()
 
     override public func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         let session = AVAudioSession.sharedInstance()
         var error:NSError?
         let category:String! = AVAudioSessionCategoryPlayAndRecord
