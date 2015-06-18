@@ -20,21 +20,19 @@ public class RecordSoundsViewController: UIViewController, AVAudioRecorderDelega
             NSSearchPathForDirectoriesInDomains( .DocumentDirectory, .UserDomainMask, true )[ 0 ] as String
         return scratchDirectory + "/pitch-perfect-recording.wav";
     }()
-    lazy var session:AVAudioSession = {
-        return AVAudioSession.sharedInstance()
-    }()
-    lazy var recorder:AVAudioRecorder = {
-        var error:NSError?
-        println( "-- saving to: \( self.fileName )" )
-        let retval =
-            AVAudioRecorder( URL:NSURL( fileURLWithPath:self.fileName ), settings:nil, error:&error )
-        retval.delegate = self
-        retval.meteringEnabled = true
-        assert( error == nil, "Error creating audio recorder: \( error!.localizedDescription )" )
-        return retval
-    }()
+    lazy var session:AVAudioSession = AVAudioSession.sharedInstance()
+
+    var recorder:AVAudioRecorder? // optional because creation can fail
 
     var audio:RecordedAudio?
+
+    func createRecorder() throws -> AVAudioRecorder
+    {
+        let retval = try AVAudioRecorder( URL:NSURL( fileURLWithPath:self.fileName ), settings: Dictionary<String, AnyObject>() )
+        retval.delegate = self
+        retval.meteringEnabled = true
+        return retval
+    }
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +42,8 @@ public class RecordSoundsViewController: UIViewController, AVAudioRecorderDelega
         stopButton.hidden = true
     }
 
-    @IBAction func record(sender: AnyObject, forEvent event: UIEvent) {
+    @IBAction func record(sender: AnyObject, forEvent event: UIEvent) throws
+    {
         statusLabel.hidden = false
 
         recordButton.enabled = false
@@ -52,15 +51,17 @@ public class RecordSoundsViewController: UIViewController, AVAudioRecorderDelega
         stopButton.hidden = false
         stopButton.enabled = true
 
-        var error:NSError?
-        session.setCategory( AVAudioSessionCategoryPlayAndRecord, error:&error )
-        assert( error == nil, "Error setting audio session category: \( error!.localizedDescription )" )
+        try session.setCategory( AVAudioSessionCategoryPlayAndRecord )
 
-        recorder.prepareToRecord()
-        recorder.record()
+        if( recorder == nil )
+        {
+            recorder = try createRecorder()
+        }
+        recorder!.prepareToRecord()
+        recorder!.record()
     }
 
-    public func audioRecorderDidFinishRecording( recorder: AVAudioRecorder!, successfully flag: Bool ) {
+    public func audioRecorderDidFinishRecording( recorder: AVAudioRecorder, successfully flag: Bool ) {
         assert( flag, "recording failed" )
 
         audio = RecordedAudio()
@@ -73,18 +74,22 @@ public class RecordSoundsViewController: UIViewController, AVAudioRecorderDelega
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if( segue.identifier == "stopRecording" )
         {
-            let target = segue.destinationViewController as PlaySoundsViewController
+            let target = segue.destinationViewController as! PlaySoundsViewController
             target.audio = audio
         }
     }
 
-    @IBAction func stop(sender: AnyObject, forEvent event: UIEvent) {
-        recorder.stop()
-        session.setActive( false, error: nil )
+    @IBAction func stop(sender: AnyObject, forEvent event: UIEvent) throws
+    {
+        if( recorder != nil )
+        {
+            recorder!.stop()
+            try session.setActive( false )
 
-        stopButton.enabled = false
-        statusLabel.hidden = true
-        recordButton.enabled = true
+            stopButton.enabled = false
+            statusLabel.hidden = true
+            recordButton.enabled = true
+        }
     }
 
 }
