@@ -14,7 +14,6 @@
 		07A2E96A1AB1497D0088BAA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07A2E9681AB1497D0088BAA5 /* Main.storyboard */; };
 		07A2E96C1AB1497D0088BAA5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07A2E96B1AB1497D0088BAA5 /* Images.xcassets */; };
 		07A2E96F1AB1497D0088BAA5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07A2E96D1AB1497D0088BAA5 /* LaunchScreen.xib */; };
-		07A2E97B1AB1497D0088BAA5 /* Pitch_PerfectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A2E97A1AB1497D0088BAA5 /* Pitch_PerfectTests.swift */; };
 		07A8CFE31ACD1ED300D34DC2 /* RecordedAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A8CFE21ACD1ED300D34DC2 /* RecordedAudio.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +39,6 @@
 		07A2E96E1AB1497D0088BAA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		07A2E9741AB1497D0088BAA5 /* Pitch PerfectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pitch PerfectTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07A2E9791AB1497D0088BAA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07A2E97A1AB1497D0088BAA5 /* Pitch_PerfectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pitch_PerfectTests.swift; sourceTree = "<group>"; };
 		07A8CFE21ACD1ED300D34DC2 /* RecordedAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordedAudio.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,7 +104,6 @@
 		07A2E9771AB1497D0088BAA5 /* Pitch PerfectTests */ = {
 			isa = PBXGroup;
 			children = (
-				07A2E97A1AB1497D0088BAA5 /* Pitch_PerfectTests.swift */,
 				07A2E9781AB1497D0088BAA5 /* Supporting Files */,
 				0795A35E1ADB4F9700BCC59D /* PlaySoundsViewControllerTest.swift */,
 			);
@@ -234,7 +231,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0795A35F1ADB4F9700BCC59D /* PlaySoundsViewControllerTest.swift in Sources */,
-				07A2E97B1AB1497D0088BAA5 /* Pitch_PerfectTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,22 +12,9 @@ import AVFoundation
 public class PlaySoundsViewController: UIViewController {
 
     var audio:RecordedAudio!
+    var file:AVAudioFile!
 
     lazy var mainBundle:NSBundle! = NSBundle.mainBundle()
-    lazy var file:AVAudioFile! = {
-        var error:NSError?
-        let retval: AVAudioFile!
-        do {
-            retval = try AVAudioFile( forReading: self.audio.path)
-        } catch var error1 as NSError {
-            error = error1
-            retval = nil
-        } catch {
-            fatalError()
-        }
-        assert( error == nil, "Error referencing recorded file: \(error?.localizedDescription)" )
-        return retval
-    }()
     lazy var node:AVAudioPlayerNode = AVAudioPlayerNode()
     lazy var effect:AVAudioUnitTimePitch = AVAudioUnitTimePitch()
     lazy var engine:AVAudioEngine! = {
@@ -57,6 +44,8 @@ public class PlaySoundsViewController: UIViewController {
 
     override public func viewWillDisappear( animated: Bool ) {
         engine.stop()
+        
+        super.viewWillDisappear( animated )
     }
 
     @IBAction func playbackSlowly( sender: UIButton, forEvent event: UIEvent ) throws
@@ -93,6 +82,10 @@ public class PlaySoundsViewController: UIViewController {
         effect.rate = rate
         effect.pitch = pitch
 
+        if( file == nil )
+        {
+            try file = AVAudioFile( forReading: self.audio.path )
+        }
         node.scheduleFile( file, atTime: nil, completionHandler: nil )
 
         engine.prepare()

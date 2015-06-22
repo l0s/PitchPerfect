@@ -39,6 +39,7 @@ public class RecordSoundsViewController: UIViewController, AVAudioRecorderDelega
     }
 
     override public func viewWillAppear(animated: Bool) {
+        super.viewWillAppear( animated )
         stopButton.hidden = true
     }
 
