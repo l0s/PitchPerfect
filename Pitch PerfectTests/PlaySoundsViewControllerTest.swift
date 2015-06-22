@@ -16,43 +16,111 @@ import XCTest
 class PlaySoundsViewControllerTest : XCTestCase
 {
 
-    lazy var sender = UIButton()
-    lazy var event = UIEvent()
+    class FakeEngine : AVAudioEngine
+    {
+        var engineStopped = false
+        override func stop()
+        {
+            engineStopped = true
+        }
+        override func prepare() {
+        }
+        override func start() throws {
+        }
+    }
+    class FakeNode : AVAudioPlayerNode
+    {
+        var nodeStopped = false
+        var scheduledFile:AVAudioFile?
+        var scheduledAtTime:AVAudioTime?
+        var scheduledCompletionHandler:AVAudioNodeCompletionHandler?
+
+        override func stop()
+        {
+            nodeStopped = true
+        }
+        override func scheduleFile( file: AVAudioFile, atTime when: AVAudioTime?, completionHandler: AVAudioNodeCompletionHandler? )
+        {
+            scheduledFile = file
+            scheduledAtTime = when
+            scheduledCompletionHandler = completionHandler
+        }
+        override func play()
+        {
+            nodeStopped = false
+        }
+    }
+    class FakeFile : AVAudioFile
+    {
+    }
+
+    var engine:FakeEngine?
+    var node:FakeNode?
+    var file:FakeFile?
+
+    var sender:UIButton?
+    var event:UIEvent?
 
     var controller:PlaySoundsViewController!
 
     override func setUp() {
         super.setUp()
 
-        class FakeNode : AVAudioPlayerNode
-        {
-            override func scheduleFile( file: AVAudioFile, atTime when: AVAudioTime?, completionHandler: AVAudioNodeCompletionHandler? )
-            {
-            }
-        }
-        class FakeFile : AVAudioFile
-        {
-        }
+        engine = FakeEngine()
+        node = FakeNode()
+        file = FakeFile()
 
         controller = PlaySoundsViewController()
-        controller.node = FakeNode()
-        controller.file = FakeFile()
+        controller.engine = engine!
+        controller.node = node!
+        controller.file = file!
+
+        sender = UIButton()
+        event = UIEvent()
     }
-    
+
     override func tearDown()
     {
         super.tearDown()
     }
-    
+
+    func testPlaybackLikeChipmunk() throws
+    {
+        // given
+
+        // when
+        try controller.playbackLikeChipmunk( sender!, forEvent: event! )
+
+        // then
+        assert( controller.effect.pitch > 500 )
+        assert( node!.scheduledFile == file )
+        assert( !node!.nodeStopped )
+    }
+
     func testPlaybackLikeDarthVader() throws
     {
         // given
 
         // when
-        try controller.playbackLikeDarthVader( sender, forEvent: event )
-        
+        try controller.playbackLikeDarthVader( sender!, forEvent: event! )
+
         // then
         assert( controller.effect.pitch < -500 )
+        assert( node!.scheduledFile == file! )
+        assert( !node!.nodeStopped )
+    }
+
+    func testPlaybackSlowly() throws
+    {
+        // given
+
+        // when
+        try controller.playbackSlowly( sender!, forEvent: event! )
+
+        // then
+        assert( controller.effect.rate < 1.0 )
+        assert( node!.scheduledFile == file )
+        assert( !node!.nodeStopped )
     }
 
     func testPlaybackQuickly() throws
@@ -60,42 +128,24 @@ class PlaySoundsViewControllerTest : XCTestCase
         // given
 
         // when
-        try controller.playbackQuickly( sender, forEvent: event )
-        
+        try controller.playbackQuickly( sender!, forEvent: event! )
+
         // then
         assert( controller.effect.rate > 1.0 )
+        assert( node!.scheduledFile == file )
+        assert( !node!.nodeStopped )
     }
 
     func testStopStopsEngine()
     {
         // given
-        class FakeEngine : AVAudioEngine
-        {
-            var engineStopped = false
-            override func stop()
-            {
-                engineStopped = true
-            }
-        }
-        class FakeNode : AVAudioPlayerNode
-        {
-            var nodeStopped = false
-            override func stop()
-            {
-                nodeStopped = true
-            }
-        }
-        let engine = FakeEngine()
-        let node = FakeNode()
-        controller.engine = engine
-        controller.node = node
 
         // when
         controller.stop()
 
         // then
-        assert( engine.engineStopped )
-        assert( node.nodeStopped )
+        assert( engine!.engineStopped )
+        assert( node!.nodeStopped )
     }
 
 }

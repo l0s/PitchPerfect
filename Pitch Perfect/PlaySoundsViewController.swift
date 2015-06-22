@@ -42,7 +42,7 @@ public class PlaySoundsViewController: UIViewController {
 
     override public func viewWillDisappear( animated: Bool ) {
         engine.stop()
-        
+
         super.viewWillDisappear( animated )
     }
 

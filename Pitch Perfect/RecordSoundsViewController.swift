@@ -11,6 +11,8 @@ import AVFoundation
 
 public class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
+    let segueIdentifier = "stopRecording"
+
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var stopButton: UIButton!
@@ -34,12 +36,10 @@ public class RecordSoundsViewController: UIViewController, AVAudioRecorderDelega
         return retval
     }
 
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override public func viewWillAppear(animated: Bool) {
+    override public func viewWillAppear(animated: Bool)
+    {
         super.viewWillAppear( animated )
+
         stopButton.hidden = true
     }
 
@@ -69,11 +69,11 @@ public class RecordSoundsViewController: UIViewController, AVAudioRecorderDelega
         audio!.title = recorder.url.lastPathComponent
         audio!.path = recorder.url
 
-        performSegueWithIdentifier( "stopRecording", sender: recorder )
+        performSegueWithIdentifier( segueIdentifier, sender: recorder )
     }
 
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if( segue.identifier == "stopRecording" )
+        if( segue.identifier == segueIdentifier )
         {
             let target = segue.destinationViewController as! PlaySoundsViewController
             target.audio = audio
