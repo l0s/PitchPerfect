@@ -25,16 +25,14 @@ public class PlaySoundsViewController: UIViewController {
         retval.connect( self.effect, to: retval.outputNode, format: nil )
         return retval
     }()
+    lazy var session = AVAudioSession.sharedInstance()
 
-    override public func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override public func viewDidLoad() {
+        super.viewDidLoad()
 
-        let session = AVAudioSession.sharedInstance()
-        let category:String! = AVAudioSessionCategoryPlayAndRecord
-        let options:AVAudioSessionCategoryOptions = .DefaultToSpeaker
         do
         {
-            try session.setCategory(category, withOptions: options)
+            try session.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: .DefaultToSpeaker)
         }
         catch let error as NSError
         {
