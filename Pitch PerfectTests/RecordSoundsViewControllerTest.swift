@@ -24,6 +24,7 @@ class RecordSoundsViewControllerTest: XCTestCase {
     {
         var preparedToRecord = false
         var _recording = false
+        var stopped = false;
 
         override func prepareToRecord() -> Bool
         {
@@ -43,11 +44,17 @@ class RecordSoundsViewControllerTest: XCTestCase {
             set (newValue){
             }
         }
+        override func stop() {
+            stopped = true
+        }
     }
 
     var session:FakeSession?
     var recorder:FakeRecorder?
     var audio:RecordedAudio?
+    var recordButton:UIButton?
+    var stopButton:UIButton?
+    var statusLabel:UILabel?
 
     var controller:RecordSoundsViewController!
 
@@ -59,12 +66,15 @@ class RecordSoundsViewControllerTest: XCTestCase {
 
         session = FakeSession()
         recorder = FakeRecorder()
+        recordButton = UIButton()
+        stopButton = UIButton()
+        statusLabel = UILabel()
         controller = RecordSoundsViewController()
         controller.session = session!
         controller.recorder = recorder!
-        controller.recordButton = UIButton()
-        controller.stopButton = UIButton()
-        controller.statusLabel = UILabel()
+        controller.recordButton = recordButton
+        controller.stopButton = stopButton
+        controller.statusLabel = statusLabel
 
         sender = UIButton()
         event = UIEvent()
@@ -82,8 +92,8 @@ class RecordSoundsViewControllerTest: XCTestCase {
         try controller.record( sender!, forEvent: event! )
 
         // then
-        assert( recorder!.preparedToRecord )
-        assert( recorder!.recording )
+        XCTAssertTrue( recorder!.preparedToRecord )
+        XCTAssertTrue( recorder!.recording )
     }
 
     func testStop() throws
@@ -94,7 +104,7 @@ class RecordSoundsViewControllerTest: XCTestCase {
         try controller.stop( sender!, forEvent: event! )
 
         // then
-        assert( session!.active )
+        XCTAssertTrue( session!.active )
     }
 
 }

@@ -92,9 +92,9 @@ class PlaySoundsViewControllerTest : XCTestCase
         try controller.playbackLikeChipmunk( sender!, forEvent: event! )
 
         // then
-        assert( controller.effect.pitch > 500 )
-        assert( node!.scheduledFile == file )
-        assert( !node!.nodeStopped )
+        XCTAssertTrue( controller.effect.pitch > 500 )
+        XCTAssertTrue( node!.scheduledFile == file )
+        XCTAssertFalse( node!.nodeStopped )
     }
 
     func testPlaybackLikeDarthVader() throws
@@ -105,9 +105,9 @@ class PlaySoundsViewControllerTest : XCTestCase
         try controller.playbackLikeDarthVader( sender!, forEvent: event! )
 
         // then
-        assert( controller.effect.pitch < -500 )
-        assert( node!.scheduledFile == file! )
-        assert( !node!.nodeStopped )
+        XCTAssertTrue( controller.effect.pitch < -500 )
+        XCTAssertTrue( node!.scheduledFile == file )
+        XCTAssertFalse( node!.nodeStopped )
     }
 
     func testPlaybackSlowly() throws
@@ -118,9 +118,9 @@ class PlaySoundsViewControllerTest : XCTestCase
         try controller.playbackSlowly( sender!, forEvent: event! )
 
         // then
-        assert( controller.effect.rate < 1.0 )
-        assert( node!.scheduledFile == file )
-        assert( !node!.nodeStopped )
+        XCTAssertTrue( controller.effect.rate < 1.0 )
+        XCTAssertTrue( node!.scheduledFile == file )
+        XCTAssertFalse( node!.nodeStopped )
     }
 
     func testPlaybackQuickly() throws
@@ -131,9 +131,9 @@ class PlaySoundsViewControllerTest : XCTestCase
         try controller.playbackQuickly( sender!, forEvent: event! )
 
         // then
-        assert( controller.effect.rate > 1.0 )
-        assert( node!.scheduledFile == file )
-        assert( !node!.nodeStopped )
+        XCTAssertTrue( controller.effect.rate > 1.0 )
+        XCTAssertTrue( node!.scheduledFile == file )
+        XCTAssertFalse( node!.nodeStopped )
     }
 
     func testStopStopsEngine()
@@ -144,8 +144,8 @@ class PlaySoundsViewControllerTest : XCTestCase
         controller.stop()
 
         // then
-        assert( engine!.engineStopped )
-        assert( node!.nodeStopped )
+        XCTAssertTrue( engine!.engineStopped )
+        XCTAssertTrue( node!.nodeStopped )
     }
 
 }
